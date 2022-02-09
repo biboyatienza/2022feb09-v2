@@ -3,6 +3,7 @@ import morgan from 'morgan'
 import createHttpError from 'http-errors'
 import {Server} from 'http'
 import dotenv from 'dotenv'
+import api from './routes/api.route'
 
 dotenv.config()
 
@@ -16,6 +17,8 @@ app.use(morgan('dev'))
 app.get('/check', (req: Request, res: Response, next: NextFunction) => {
     res.send(`All OK ${createdBy}`)
 })
+
+app.use('/api', api)
 
 app.use((req: Request, res: Response, next: NextFunction) => {
     next(new createHttpError.NotFound())
